@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>replit</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 *{
   margin:0;
   box-sizing:border-box;
@@ -83,52 +83,31 @@ p{
 a{
     text-decoration: none;
 }
-    </style>
+  </style>
 </head>
 
 <body>
 
-<div class="con">
+  <div class="con">
 
     <div class="mid">
-        <h1>Sign Up</h1>
-        <form action="/"method="post">
+        <h1>Sign In</h1>
+    <form action="login.php" method="post">
 
-            <input type="text" name="name" placeholder="Name">
-            <input type="text" name="email" placeholder="Email">
-            <input type="text" name="pass" placeholder="Password">
-            <button type="submit"name="submit"> Sign up </button>
-        </form>
 
-        <a href="login">
-            <p>Login</p></a>
+<input type="text"name="email" placeholder="Email">
+<input type="text"name="pass" placeholder="Password">
+  <button name="submit"> Sign in </button>
+       <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1">remember me</label> 
+
+    </form>
+
+        <a href="/">
+            <p>Sign up</p></a>
     </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<script>
-  if("suc"==="{{succ}}"){
-Swal.fire(
-  'Good job!',
-  'You clicked the button!',
-  'success'
-)
-}
-if("errr"==="{{err}}"){
-  Swal.fire(
-  'Sorry!',
-  'user alredy exist',
-  'warning'
-)
-}
-</script> 
-<script>  
-if ( window.history.replaceState ) { 
-        window.history.replaceState( null, null, window.location.href ); 
-    } 
-</script> 
+  </div>
+  <script src="script.js"></script>
 </body>
 
 </html>
