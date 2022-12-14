@@ -44,7 +44,10 @@ app.get('/',(req,res)=>{
               from: 'KITO',
               to: `${req.body.email}`,
               subject: 'Account Registration',
-              template:'email'
+              template:'email',
+              context:{
+                title:name
+              }
             };
             
             transporter.sendMail(mailOptions, function(error, info){
