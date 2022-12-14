@@ -205,9 +205,9 @@ form .btn input[type="submit"]{
           <div class="slider-tab"></div>
         </div>
         <div class="form-inner">
-          <form action="/login" method="POST"class="login">
+          <form action="/login" method="post"class="login">
             <div class="field">
-              <input type="email" name="mail" placeholder="Email Address" required>
+              <input type="email" name="email" placeholder="Email Address" required>
             </div>
             <div class="field">
               <input type="password" name="pass" placeholder="Password" required>
@@ -219,7 +219,7 @@ form .btn input[type="submit"]{
             </div>
             <div class="signup-link">Not a member? <a href="">Signup now</a></div>
           </form>
-          <form id="sub_form" class="signup" >
+          <form action="/" method="post"id="sub_form" class="signup" >
             <div class="field">
               <input type="text" id="name" placeholder="Name" name="name" required>
             </div>
@@ -260,27 +260,17 @@ form .btn input[type="submit"]{
         signupBtn.click();
         return false;
       });
-const form = document.getElementById('sub_form')
-			form.addEventListener('submit', registerUser)
 
-			async function registerUser(event) {
-				event.preventDefault()
-				const name = document.getElementById('name').value
-        const email = document.getElementById('email').value
-				const pass = document.getElementById('pass').value
-
-				const result = await fetch('/', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						name,
-            email,
-						pass
-					})
-				})
-      
+   if ( window.history.replaceState ) { 
+        window.history.replaceState( null, null, window.location.href ); 
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script>
+        
 if("suc"==="{{succ}}"){
 Swal.fire(
   'Good job!',
@@ -302,13 +292,7 @@ if("e"==="{{wron}}"){
   'warning'
 )
 }
-      }
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-<script>
+   
 
 </script>
 </html> 

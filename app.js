@@ -14,82 +14,80 @@ app.use(express.urlencoded({extended:false}));
 app.get('/',(req,res)=>{
     res.render('index'); 
     })
-
-app.post('/',async(req,res)=>{    
-
-    try{
-      const sig=new sign({
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.pass
-    })
-    const succc=await sig.save()
-  
- console.log(succc)
-         if(succc){
-          
+    app.post('/',async(req,res)=>{
+      try{
+        const {name,email,pass}=req.body;
+        const sig=new sign({
+          name:name,
+          email:email,
+          password:pass
+        })
+        const insert=sig.save(err=>{
+          if(err){
+            console.log("error")
+            res.render('index',{err:"errr"})
+          }
+          else{
             var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: 'infocbs869@gmail.com',
-                  pass: 'nqckcnvulorsbezu'
-                }
-              });
-              transporter.use('compile', hbs({
-                viewEngine:'express-handlebars',
-                viewPath:path.join(__dirname,'views')
-              }));
+              service: 'gmail',
+              auth: {
+                user: 'infocbs869@gmail.com',
+                pass: 'nqckcnvulorsbezu'
+              }
+            });
+            transporter.use('compile', hbs({
+              viewEngine:'express-handlebars',
+              viewPath:path.join(__dirname,'views')
+            }));
 
-              var mailOptions = {
-                from: 'KITO',
-                to: `${req.body.email}`,
-                subject: 'Account Registration',
-                template:'email'
-              };
-              
-              transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log('Email sent: ' + info.response);
-                  
-                   res.render('index',{succ:"suc"});
-                  // return res.json({succ:"suc"})
-                }
-              });
-    
-         }
+            var mailOptions = {
+              from: 'KITO',
+              to: `${req.body.email}`,
+              subject: 'Account Registration',
+              template:'email'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+                res.render('index',{err:"errr"})
+              } else {
+                console.log('Email sent: ' + info.response);
+                
+                 res.render('index',{succ:"suc"});
+                
+              }
+            });
+            // res.render('index',{succ:"suc"});
+          }
+        });
 
-   
-    
 
-    }
-    catch(error)
-    {
-    
-     
-        // res.render('index',{err:"errr"})
-        if(error.code===11000){
+      }
+      catch(error){
+        // console.log(error)
           res.render('index',{err:"errr"})
-          // return res.json({err:"errr"})
+      }
+    })
 
-        }
-    }
-  
-})
 app.post('/login',async(req,res)=>{
   try{
-const dupli=await sign.findOne({email:req.body.mail})
-if(dupli.email===req.body.mail && dupli.password===req.body.pass){
-    res.render("acco");
+  const {email,pass}=req.body;
+  const find=await sign.findOne({email:email});
+  if(find.email==email && find.password== pass){
+    res.render('acco')
+  }
+else{
+  res.render('index',{wron:"e"})
 }
   }
   catch(e){
-console.log(e)
-  res.render('index',{wron:"e"})
-
+    console.log(e)
+    res.render('index',{wron:"e"})
   }
-  })
+
+
+})
 app.listen(4000,()=>{
     console.log('done');
 })
