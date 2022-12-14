@@ -92,12 +92,12 @@ a{
 
     <div class="mid">
         <h1>Sign In</h1>
-    <form action="login.php" method="post">
+    <form action="/login" method="post">
 
 
 <input type="text"name="email" placeholder="Email">
 <input type="text"name="pass" placeholder="Password">
-  <button name="submit"> Sign in </button>
+  <button type="submit" name="submit"> Sign in </button>
        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
         <label for="vehicle1">remember me</label> 
 
@@ -107,7 +107,25 @@ a{
             <p>Sign up</p></a>
     </div>
   </div>
-  <script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script>
+if("errr"==="{{err}}"){
+  Swal.fire(
+  'Sorry!',
+  'user dosent exist',
+  'warning'
+)
+}
+</script> 
+<script>  
+if ( window.history.replaceState ) { 
+        window.history.replaceState( null, null, window.location.href ); 
+    } 
+</script> 
+
 </body>
 
 </html>

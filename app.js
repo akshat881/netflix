@@ -28,19 +28,65 @@ app.get('/',(req,res)=>{
             res.render('index',{err:"errr"})
           }
           else{
-            res.render('index',{succ:"suc"});
+            var transporter = nodemailer.createTransport({
+              service: 'gmail',
+              auth: {
+                user: 'infocbs869@gmail.com',
+                pass: 'nqckcnvulorsbezu'
+              }
+            });
+            transporter.use('compile', hbs({
+              viewEngine:'express-handlebars',
+              viewPath:path.join(__dirname,'views')
+            }));
+
+            var mailOptions = {
+              from: 'KITO',
+              to: `${req.body.email}`,
+              subject: 'Account Registration',
+              template:'email'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+              if (error) {
+                console.log(error);
+                res.render('index',{err:"errr"})
+              } else {
+                console.log('Email sent: ' + info.response);
+                
+                 res.render('index',{succ:"suc"});
+                
+              }
+            });
+            // res.render('index',{succ:"suc"});
           }
         });
 
 
       }
       catch(error){
-        console.log(error)
+        // console.log(error)
           res.render('index',{err:"errr"})
       }
     })
 app.get('/login',(req,res)=>{
   res.render('login');
+})
+app.post('/login',async(req,res)=>{
+  try{
+  const {email,pass}=req.body;
+  const find=await sign.findOne({email:email});
+  if(find.email==email && find.password== pass){
+    res.render('acco')
+  }
+
+  }
+  catch(e){
+    console.log(e)
+    res.render('login',{err:"errr"})
+  }
+
+
 })
 app.listen(4000,()=>{
     console.log('done');
