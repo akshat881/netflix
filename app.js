@@ -2,7 +2,6 @@ const express =require('express');
 const app=express();
 const path=require('path')
 require('./db/cones');
-
 var hbs = require('nodemailer-express-handlebars');
 const sign=require('./models/register');
 app.set('view engine','hbs');
@@ -22,9 +21,9 @@ app.get('/',(req,res)=>{
           email:email,
           password:pass
         })
-        const insert=sig.save(err=>{
+        const insert=await sig.save(err=>{
           if(err){
-            console.log("error")
+            console.log(err)
             res.render('index',{err:"errr"})
           }
           else{
@@ -50,10 +49,10 @@ app.get('/',(req,res)=>{
               }
             };
             
-            transporter.sendMail(mailOptions, function(error, info){
+            transporter.sendMail(mailOptions,function(error, info){
               if (error) {
-                console.log(error);
-                res.render('index',{err:"errr"})
+                // console.log(error);
+                // res.render('index',{err:"errr"})
               } else {
                 console.log('Email sent: ' + info.response);
                 
