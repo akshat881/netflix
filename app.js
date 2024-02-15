@@ -31,8 +31,8 @@ app.post('/',async(req,res)=>{
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                  user: 'infocbs869@gmail.com',
-                  pass: 'nqckcnvulorsbezu'
+                  user: '',
+                  pass: ''
                 }
               });
               transporter.use('compile', hbs({
